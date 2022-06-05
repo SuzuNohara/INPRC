@@ -1,0 +1,94 @@
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="form-label">Tipo</label>
+                        <select class="form-select" [(ngModel)]="type">
+                            <option value="1">Himno</option>
+                            <option value="2">Texto</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label *ngIf="type == 2" for="" class="form-label">Libro</label>
+                        <select *ngIf="type == 2" [(ngModel)]="libro" (ngModelChange)="generateChapters()" placeholder="Libro" class="form-select">
+                            <option *ngFor="let book of biblia.books" [value]="book.number - 1">{{ book.name }}</option>
+                        </select>
+                        <label *ngIf="type == 1" for="" class="form-label">Numero</label>
+                        <input *ngIf="type == 1" type="number" class="form-control" placeholder="Numero">
+                    </div>
+                    <div class="col" *ngIf="type == 2">
+                        <label for="" class="form-label">Capitulo</label>
+                        <select [(ngModel)]="capitulo" (ngModelChange)="generateVerses()" placeholder="Capitulo" class="form-select">
+                            <option *ngFor="let chapter of capitulos" [value]="chapter">{{ chapter }}</option>
+                        </select>
+                    </div>
+                    <div class="col" *ngIf="type == 2">
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Versiculo</label>
+                                <select *ngIf="type == 2" [(ngModel)]="verso1" (ngModelChange)="initialSelected()" class="form-select" placeholder="Versiculo">
+                                    <option *ngFor="let verse of versos1" [value]="verse">{{ verse }}</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-md-auto text-center"></div> -->
+                            <div class="col">
+                                <label for="" class="form-label">Versiculo</label>
+                                <select *ngIf="type == 2" [(ngModel)]="verso2" class="form-select" placeholder="Versiculo">
+                                    <option *ngFor="let verso of versos2" [value]="verso">{{ verso }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <br>
+                        <button *ngIf="type == 1" type="button" (click)="addHimno()" class="btn btn-dark">Añadir</button>
+                        <button *ngIf="type == 2" type="button" (click)="addText()" class="btn btn-dark">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-item active">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure natus, odit dolor saepe assumenda soluta dolorem dolorum. Quo magnam dicta animi, adipisci, veritatis at eos voluptas aliquam possimus laborum accusantium?
+            Dolore repellendus quia incidunt recusandae dolorum eligendi iusto velit repellat, quae laudantium quam suscipit? Eum suscipit dolores ipsa exercitationem asperiores accusamus mollitia, nemo explicabo, debitis excepturi, ducimus deleniti impedit laborum.
+            Repellendus doloribus deserunt fuga sequi odio, corrupti sit eos veritatis maiores quidem earum odit maxime blanditiis quam. Magni illo placeat sint rem dicta commodi animi voluptas illum? Eligendi, quo molestiae.
+            Laborum dolores minus recusandae doloremque natus similique dolorem sapiente debitis ratione provident quos, pariatur quas fugit praesentium mollitia, vero qui maxime voluptate illum? Modi itaque at repudiandae expedita, voluptatibus sit!
+            Dolor perspiciatis, maxime dolorem totam odit numquam illo explicabo laudantium laboriosam amet facere ipsum, atque aut earum. Sint at enim et optio aliquid veritatis libero! Mollitia facere fugit vitae maxime!
+        </div>
+        <div class="carousel-item">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni unde, fugit distinctio odit iure molestiae, aliquid aspernatur laboriosam repudiandae omnis saepe debitis corrupti perspiciatis natus dignissimos neque repellat error maxime!
+            Saepe nam, omnis quas deserunt vitae numquam labore quisquam repudiandae sit, iure sed harum eaque modi officia mollitia doloribus dolorem! Non vero libero tempore sapiente voluptatibus, odio dolor quidem totam?
+            Quaerat magnam quam voluptatum odit temporibus, sequi earum culpa! Voluptatibus sint assumenda totam temporibus impedit. Iste explicabo nobis dignissimos possimus! Molestias culpa, totam a tempora voluptatem vero voluptatibus dicta voluptates.
+            Id architecto, nisi nam eius quis iste nostrum, adipisci vero cumque, quod explicabo? Iste, dolorum pariatur! Magnam numquam sint optio expedita, esse nulla tempora repellendus omnis distinctio eligendi, obcaecati cumque!
+        </div>
+        <div class="carousel-item">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo expedita soluta id repellendus dignissimos, culpa quidem debitis quam alias sequi neque aspernatur consectetur ad consequatur consequuntur harum? Voluptate, quod iure?
+            Modi natus dolores at voluptate in molestias rerum repellendus possimus nobis, ducimus quidem porro veniam veritatis expedita, ratione ab suscipit repellat? Pariatur est alias provident laudantium odio incidunt enim autem?
+            Maxime praesentium, quaerat ea repellendus quam eveniet soluta quis dolores dignissimos assumenda ut, dicta reprehenderit nobis error. Corporis voluptatem quos maiores asperiores quidem delectus, dignissimos sint quaerat, impedit dolor alias!
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
