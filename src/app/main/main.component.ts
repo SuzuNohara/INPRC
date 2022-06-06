@@ -15,12 +15,13 @@ export class MainComponent implements OnInit {
   public libro: number;
   public capitulo: number;
   public capitulos: number[];
-  public versos1: number[];
-  public versos2: number[];
+  public versos1: any[];
+  public versos2: any[];
   public verso1: number;
   public verso2: number;
+  public himno: number;
 
-  public badges: Himno[] | Texto[];
+  public badges: any[];
 
   constructor(private data: DataService) {
     this.type = 2;
@@ -32,6 +33,7 @@ export class MainComponent implements OnInit {
     this.verso1 = -1;
     this.verso2 = -1;
     this.badges = [];
+    this.himno = 1;
   }
 
   ngOnInit(): void {
@@ -50,55 +52,41 @@ export class MainComponent implements OnInit {
   }
 
   public generateVerses(){
-    let chapter = [];
-    for(let chap of this.biblia.books[this.libro].content){
-      if(chap.chapter == this.capitulo){
-        chapter.push(chap);
-      }
-    }
-    this.versos1 = Array(chapter.length + 1).fill(1).map((x, i) => i);
-    this.versos1.shift();
-    this.versos2 = Array(chapter.length + 1).fill(1).map((x, i) => i);
-    this.versos2.shift();
+    this.versos1 = this.biblia.books[this.libro].chapters[this.capitulo].content;
+    this.versos2 = this.biblia.books[this.libro].chapters[this.capitulo].content;
   }
 
   public initialSelected(){
-    this.versos2 = [];
-    for(let i = 1; i <= this.versos1.length; i++){
-      this.versos2.push(i);
-    }
-    for(let i = 0; i < this.verso1; i++){
-      this.versos2.shift();
-    }
-    this.verso2 = this.verso1;
   }
 
   addText(){
-    let content: string[] = [];
-    for(let cont of this.biblia.books[this.libro - 1].content){
-      console.log(cont)
-      if(this.verso2 != -1){
-        if(cont.chapter == Number(this.capitulo) && Number(cont.verse) >= Number(this.verso1) && Number(cont.verse) <= Number(this.verso2)){
-          content.push(cont.content);
-        }
-      } else {
-        if(cont.chapter == this.capitulo && cont.verse == this.verso1){
-          content.push(cont.content);
+    if(this.verso2 == -1){
+      let text : Texto = {
+        libro: this.biblia.books[this.libro],
+        capitulo: this.capitulo + '',
+        versiculo1: this.verso1 + '',
+        content: [this.biblia.books[this.libro].chapters[this.capitulo].content[this.verso1].content]
+      };
+      this.badges.push(text);
+    }else if(this.verso1 >= this.verso2){
+      let conts: string[] = [];
+      for(let i = 0; i < this.biblia.books[this.libro].chapters[this.capitulo].content.length; i++){
+        if(i >= this.verso1 && i <= this.verso2){
+          conts.push(this.biblia.books[this.libro].chapters[this.capitulo].content[i].content);
         }
       }
+      let text : Texto = {
+        libro: this.biblia.books[this.libro].name,
+        capitulo: this.capitulo + '',
+        versiculo1: this.verso1 + '',
+        content: conts
+      };
+      this.badges.push(text);
     }
-    let text: Texto = {
-      libro: this.biblia.books[this.libro].name,
-      capitulo: this.capitulo + '',
-      versiculo1: this.verso1 + '',
-      versiculo2: this.verso2 + '',
-      content: []
-    };
-    console.log(text);
   }
 
   addHimno(){
-
+    this.badges.push(this.himnario[this.himno]);
   }
 
 }

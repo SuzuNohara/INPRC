@@ -2,7 +2,7 @@ export interface Texto{
     libro: string;
     capitulo: string;
     versiculo1: string;
-    versiculo2: string;
+    versiculo2?: string;
     content: string[];
 }
 

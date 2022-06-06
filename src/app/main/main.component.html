@@ -19,13 +19,13 @@
                         <select *ngIf="type == 2" [(ngModel)]="libro" (ngModelChange)="generateChapters()" placeholder="Libro" class="form-select">
                             <option *ngFor="let book of biblia.books" [value]="book.number - 1">{{ book.name }}</option>
                         </select>
-                        <label *ngIf="type == 1" for="" class="form-label">Numero</label>
+                        <label *ngIf="type == 1" for="" [(ngModel)]="himno" class="form-label">Numero</label>
                         <input *ngIf="type == 1" type="number" class="form-control" placeholder="Numero">
                     </div>
                     <div class="col" *ngIf="type == 2">
                         <label for="" class="form-label">Capitulo</label>
                         <select [(ngModel)]="capitulo" (ngModelChange)="generateVerses()" placeholder="Capitulo" class="form-select">
-                            <option *ngFor="let chapter of capitulos" [value]="chapter">{{ chapter }}</option>
+                            <option *ngFor="let chapter of biblia.books[libro].chapters" [value]="chapter.number - 1">{{ chapter.number }}</option>
                         </select>
                     </div>
                     <div class="col" *ngIf="type == 2">
@@ -33,14 +33,14 @@
                             <div class="col">
                                 <label for="" class="form-label">Versiculo</label>
                                 <select *ngIf="type == 2" [(ngModel)]="verso1" (ngModelChange)="initialSelected()" class="form-select" placeholder="Versiculo">
-                                    <option *ngFor="let verse of versos1" [value]="verse">{{ verse }}</option>
+                                    <option *ngFor="let verse of versos1; let j = index" [value]="j">{{ verse.verse }}</option>
                                 </select>
                             </div>
                             <!-- <div class="col-md-auto text-center"></div> -->
                             <div class="col">
                                 <label for="" class="form-label">Versiculo</label>
                                 <select *ngIf="type == 2" [(ngModel)]="verso2" class="form-select" placeholder="Versiculo">
-                                    <option *ngFor="let verso of versos2" [value]="verso">{{ verso }}</option>
+                                    <option *ngFor="let verso of versos2; let i = index" [value]="i">{{ verso.verse }}</option>
                                 </select>
                             </div>
                         </div>
@@ -57,7 +57,11 @@
     </div>
 </div>
 
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div class="container center">
+    <button class="btn btn-dark"></button>
+</div>
+
+<!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -91,4 +95,4 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </div>
+  </div> -->
